@@ -77,6 +77,12 @@ class DataType(IntEnum):
     INT32 = 4
     INT64 = 5
 
+    #add
+    UINT8 = 6
+    UINT16 = 7
+    UINT32 = 8
+    UINT64 = 9
+
     FLOAT = 10
     DOUBLE = 11
 

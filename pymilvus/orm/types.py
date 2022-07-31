@@ -41,10 +41,10 @@ numpy_dtype_str_map = {
     "int16": DataType.INT16,
     "int32": DataType.INT32,
     "int64": DataType.INT64,
-    "uint8": DataType.INT8,
-    "uint16": DataType.INT16,
-    "uint32": DataType.INT32,
-    "uint64": DataType.INT64,
+    "uint8": DataType.UINT8,
+    "uint16": DataType.UINT16,
+    "uint32": DataType.UINT32,
+    "uint64": DataType.UINT64,
     "float": DataType.FLOAT,
     "float_": DataType.FLOAT,
     "float16": DataType.FLOAT,
@@ -56,7 +56,8 @@ numpy_dtype_str_map = {
 
 
 def is_integer_datatype(data_type):
-    return data_type in (DataType.INT8, DataType.INT16, DataType.INT32, DataType.INT64)
+    return data_type in (DataType.INT8, DataType.INT16, DataType.INT32, DataType.INT64,
+                        DataType.UINT8, DataType.UINT16, DataType.UINT32, DataType.UINT64)
 
 
 def is_float_datatype(data_type):
@@ -89,6 +90,16 @@ def infer_dtype_by_scaladata(data):
         return DataType.INT16
     if isinstance(data, np.int8):
         return DataType.INT8
+    #add
+    if isinstance(data, np.uint64):
+        return DataType.UINT64
+    if isinstance(data, np.uint32):
+        return DataType.UINT32
+    if isinstance(data, np.uint16):
+        return DataType.UINT16
+    if isinstance(data, np.uint8):
+        return DataType.UINT8
+
     if isinstance(data, np.bool8):
         return DataType.BOOL
     if isinstance(data, np.bool_):

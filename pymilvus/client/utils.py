@@ -118,6 +118,12 @@ def len_of(field_data) -> int:
             return len(field_data.scalars.int_data.data)
         elif field_data.scalars.HasField("long_data"):
             return len(field_data.scalars.long_data.data)
+        #add
+        elif field_data.scalars.HasField("uint_data"):
+            return len(field_data.scalars.uint_data.data)
+        elif field_data.scalars.HasField("ulong_data"):
+            return len(field_data.scalars.ulong_data.data)
+
         elif field_data.scalars.HasField("float_data"):
             return len(field_data.scalars.float_data.data)
         elif field_data.scalars.HasField("double_data"):

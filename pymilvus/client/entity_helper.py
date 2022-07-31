@@ -59,6 +59,16 @@ def entity_to_field_data(entity, field_info):
         field_data.scalars.int_data.data.extend(entity.get("values"))
     elif entity_type in (DataType.INT64,):
         field_data.scalars.long_data.data.extend(entity.get("values"))
+    #add
+    elif entity_type in (DataType.UINT8,):
+        field_data.scalars.uint_data.data.extend(entity.get("values"))
+    elif entity_type in (DataType.UINT16,):
+        field_data.scalars.uint_data.data.extend(entity.get("values"))
+    elif entity_type in (DataType.UINT32,):
+        field_data.scalars.uint_data.data.extend(entity.get("values"))
+    elif entity_type in (DataType.UINT64,):
+        field_data.scalars.ulong_data.data.extend(entity.get("values"))
+
     elif entity_type in (DataType.FLOAT,):
         field_data.scalars.float_data.data.extend(entity.get("values"))
     elif entity_type in (DataType.DOUBLE,):

@@ -1023,6 +1023,12 @@ class GrpcHandler:
                     result[field_data.field_name] = field_data.scalars.int_data.data[index]
                 elif field_data.type == DataType.INT64:
                     result[field_data.field_name] = field_data.scalars.long_data.data[index]
+                #add
+                elif field_data.type in (DataType.UINT8, DataType.UINT16, DataType.UINT32):
+                    result[field_data.field_name] = field_data.scalars.uint_data.data[index]
+                elif field_data.type == DataType.UINT64:
+                    result[field_data.field_name] = field_data.scalars.ulong_data.data[index]
+
                 elif field_data.type == DataType.FLOAT:
                     result[field_data.field_name] = round(field_data.scalars.float_data.data[index], 6)
                 elif field_data.type == DataType.DOUBLE:

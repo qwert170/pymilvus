@@ -17,6 +17,18 @@ def int32ToBytes(i):
 def int64ToBytes(i):
     return struct.pack("q", i)
 
+def uint8ToBytes(u):
+    return struct.pack("b", u)
+
+def uint16ToBytes(u):
+    return struct.pack("h", u)
+
+def uint32ToBytes(u):
+    return struct.pack("i", u)
+
+def uint64ToBytes(u):
+    return struct.pack("q", u)
+
 def floatToBytes(f):
     return struct.pack("f", f)
 
