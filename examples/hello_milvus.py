@@ -49,7 +49,7 @@ print(f"Does collection hello_milvus exist in Milvus: {has}")
 # +-+------------+------------+------------------+------------------------------+
 fields = [
     FieldSchema(name="pk", dtype=DataType.VARCHAR, is_primary=True, auto_id=False, max_length=100),
-    FieldSchema(name="random", dtype=DataType.UINT64),
+    FieldSchema(name="random", dtype=DataType.DOEBLE),
     FieldSchema(name="embeddings", dtype=DataType.FLOAT_VECTOR, dim=dim)
 ]
 
@@ -72,7 +72,8 @@ rng = np.random.default_rng(seed=19530)
 entities = [
     # provide the pk field because `auto_id` is set to False
     [str(i) for i in range(num_entities)],
-    rng.random(num_entities).tolist(),  # field random, only supports list
+    #rng.integers(num_entities,dtype=np.int64).tolist(),  # field random, only supports list
+    rng.random(num_entities).tolist(),
     rng.random((num_entities, dim)),    # field embeddings, supports numpy.ndarray and list
 ]
 

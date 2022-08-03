@@ -173,12 +173,14 @@ class Collection:
                     data = data.drop(self._schema.primary_field.name, axis=1)
 
         infer_fields = parse_fields_from_data(data)
+        print("test_check_insert_data_schema")
+        print(infer_fields)
         tmp_fields = copy.deepcopy(self._schema.fields)
 
         for i, field in enumerate(self._schema.fields):
             if field.is_primary and field.auto_id:
                 tmp_fields.pop(i)
-
+        print(tmp_fields)
         if len(infer_fields) != len(tmp_fields):
             raise DataTypeNotMatchException(0, ExceptionsMessage.FieldsNumInconsistent)
 
