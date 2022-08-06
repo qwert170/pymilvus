@@ -49,7 +49,7 @@ print(f"Does collection hello_milvus exist in Milvus: {has}")
 # +-+------------+------------+------------------+------------------------------+
 fields = [
     FieldSchema(name="pk", dtype=DataType.VARCHAR, is_primary=True, auto_id=False, max_length=100),
-    FieldSchema(name="random", dtype=DataType.DOEBLE),
+    FieldSchema(name="random", dtype=DataType.DOUBLE),
     FieldSchema(name="embeddings", dtype=DataType.FLOAT_VECTOR, dim=dim)
 ]
 

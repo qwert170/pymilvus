@@ -284,12 +284,12 @@ class Hits(LoopBase):
                     if len(field_data.scalars.long_data.data) >= item:
                         entity_row_data[field_data.field_name] = field_data.scalars.long_data.data[item]
                 #add
-                elif field_data.type in (DataType.INT8, DataType.INT16, DataType.INT32):
-                    if len(field_data.scalars.int_data.data) >= item:
-                        entity_row_data[field_data.field_name] = field_data.scalars.int_data.data[item]
-                elif field_data.type == DataType.INT64:
-                    if len(field_data.scalars.long_data.data) >= item:
-                        entity_row_data[field_data.field_name] = field_data.scalars.long_data.data[item]
+                elif field_data.type in (DataType.UINT8, DataType.UINT16, DataType.UINT32):
+                    if len(field_data.scalars.uint_data.data) >= item:
+                        entity_row_data[field_data.field_name] = field_data.scalars.uint_data.data[item]
+                elif field_data.type == DataType.UINT64:
+                    if len(field_data.scalars.ulong_data.data) >= item:
+                        entity_row_data[field_data.field_name] = field_data.scalars.ulong_data.data[item]
 
                 elif field_data.type == DataType.FLOAT:
                     if len(field_data.scalars.float_data.data) >= item:
@@ -523,13 +523,13 @@ class ChunkedQueryResult(LoopBase):
                     if field_data.type == DataType.BOOL:
                         field.scalars.bool_data.data.extend(field_data.scalars.bool_data.data[start_pos: end_pos])
                     elif field_data.type in (DataType.INT8, DataType.INT16, DataType.INT32):
-                        field.scalars.int_data.data.extend(field_data.scalars.int_data.data[start_pos: end_pos])
+                        field.scalars.int_data.data.extend(field_data.scalars.uint_data.data[start_pos: end_pos])
                     elif field_data.type == DataType.INT64:
-                        field.scalars.long_data.data.extend(field_data.scalars.long_data.data[start_pos: end_pos])
+                        field.scalars.long_data.data.extend(field_data.scalars.ulong_data.data[start_pos: end_pos])
                     #add
                     elif field_data.type in (DataType.UINT8, DataType.UINT16, DataType.UINT32):
                         field.scalars.uint_data.data.extend(field_data.scalars.uint_data.data[start_pos: end_pos])
-                    elif field_data.type == DataType.INT64:
+                    elif field_data.type == DataType.UINT64:
                         field.scalars.ulong_data.data.extend(field_data.scalars.ulong_data.data[start_pos: end_pos])
 
                     elif field_data.type == DataType.FLOAT:

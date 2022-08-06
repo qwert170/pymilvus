@@ -712,13 +712,15 @@ class GrpcHandler:
         request = Prepare.show_collections_request([collection_name])
         future = self._stub.ShowCollections.future(request, timeout=timeout)
         response = future.result()
+        print("collection_names:",response.collection_names)
+        print("names:",response.inMemory_percentages)
 
         if response.status.error_code != 0:
             raise MilvusException(response.status.error_code, response.status.reason)
 
         ol = len(response.collection_names)
         pl = len(response.inMemory_percentages)
-
+        print("ol:%d  pl:%d",ol,pl)
         if ol != pl:
             raise MilvusException(ErrorCode.UnexpectedError,
                                   f"len(collection_names) ({ol}) != len(inMemory_percentages) ({pl})")
