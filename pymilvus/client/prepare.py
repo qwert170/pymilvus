@@ -154,7 +154,6 @@ class Prepare:
     @classmethod
     def show_collections_request(cls, collection_names=None):
         req = milvus_types.ShowCollectionsRequest()
-        print("show_collection_request req:",req)
         if collection_names:
             if not isinstance(collection_names, (list,)):
                 raise ParamError(f"collection_names must be a list of strings, but got: {collection_names}")

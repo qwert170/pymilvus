@@ -173,14 +173,11 @@ class Collection:
                     data = data.drop(self._schema.primary_field.name, axis=1)
 
         infer_fields = parse_fields_from_data(data)
-        print("test_ctype(data[0])heck_insert_data_schema")
-        print(infer_fields)
         tmp_fields = copy.deepcopy(self._schema.fields)
 
         for i, field in enumerate(self._schema.fields):
             if field.is_primary and field.auto_id:
                 tmp_fields.pop(i)
-        print(tmp_fields)
         if len(infer_fields) != len(tmp_fields):
             raise DataTypeNotMatchException(0, ExceptionsMessage.FieldsNumInconsistent)
 
@@ -471,12 +468,9 @@ class Collection:
         """
         conn = self._get_connection()
         if partition_names is not None:
-            print("load_partitions")
             conn.load_partitions(self._name, partition_names, replica_number=replica_number, timeout=timeout, **kwargs)
         else:
-            print("load_collection")
             conn.load_collection(self._name, replica_number=replica_number, timeout=timeout, **kwargs)
-            print("load_over")
 
     def release(self, timeout=None, **kwargs):
         """
@@ -558,7 +552,6 @@ class Collection:
         schema_dict = self._schema.to_dict()
         schema_dict["consistency_level"] = self._consistency_level
         res = conn.bulk_insert(self._name, entities, partition_name, ids=None, timeout=timeout, schema=schema_dict, **kwargs)
-        print("insert successfully")
         if kwargs.get("_async", False):
             return MutationFuture(res)
         return MutationResult(res)

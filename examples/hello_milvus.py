@@ -6,8 +6,10 @@
 # 5. search, query, and hybrid search on entities
 # 6. delete entities by PK
 # 7. drop collection
+from queue import Empty
+import re
 import time
-
+import random
 import numpy as np
 from pymilvus import (
     connections,
@@ -18,7 +20,7 @@ from pymilvus import (
 
 fmt = "\n=== {:30} ===\n"
 search_latency_fmt = "search latency = {:.4f}s"
-num_entities, dim = 3000, 8
+num_entities, dim = 30, 8
 
 #################################################################################
 # 1. connect to Milvus
@@ -49,7 +51,7 @@ print(f"Does collection hello_milvus exist in Milvus: {has}")
 # +-+------------+------------+------------------+------------------------------+
 fields = [
     FieldSchema(name="pk", dtype=DataType.VARCHAR, is_primary=True, auto_id=False, max_length=100),
-    FieldSchema(name="random", dtype=DataType.DOUBLE),
+    FieldSchema(name="random", dtype=DataType.UINT64),
     FieldSchema(name="embeddings", dtype=DataType.FLOAT_VECTOR, dim=dim)
 ]
 
@@ -72,8 +74,8 @@ rng = np.random.default_rng(seed=19530)
 entities = [
     # provide the pk field because `auto_id` is set to False
     [str(i) for i in range(num_entities)],
-    #rng.integers(num_entities,dtype=np.int64).tolist(),  # field random, only supports list
-    rng.random(num_entities).tolist(),
+    np.uint64([random.randint(1, 1000) for _ in range(num_entities)]),
+    #rng.random(num_entities).tolist(),# field random, only supports list
     rng.random((num_entities, dim)),    # field embeddings, supports numpy.ndarray and list
 ]
 
@@ -127,10 +129,10 @@ print(search_latency_fmt.format(end_time - start_time))
 
 # -----------------------------------------------------------------------------
 # query based on scalar filtering(boolean, int, etc.)
-print(fmt.format("Start querying with `random > 0.5`"))
+print(fmt.format("Start querying with `random > 5`"))
 
 start_time = time.time()
-result = hello_milvus.query(expr="random > 0.5", output_fields=["random", "embeddings"])
+result = hello_milvus.query(expr="random > 5", output_fields=["random", "embeddings"])
 end_time = time.time()
 
 print(f"query result:\n-{result[0]}")
@@ -138,10 +140,10 @@ print(search_latency_fmt.format(end_time - start_time))
 
 # -----------------------------------------------------------------------------
 # hybrid search
-print(fmt.format("Start hybrid searching with `random > 0.5`"))
+print(fmt.format("Start hybrid searching with `random > 5`"))
 
 start_time = time.time()
-result = hello_milvus.search(vectors_to_search, "embeddings", search_params, limit=3, expr="random > 0.5", output_fields=["random"])
+result = hello_milvus.search(vectors_to_search, "embeddings", search_params, limit=3, expr="random > 5", output_fields=["random"])
 end_time = time.time()
 
 for hits in result:

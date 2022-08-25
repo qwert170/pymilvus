@@ -89,7 +89,6 @@ def infer_dtype_by_scaladata(data):
         return DataType.INT16
     if isinstance(data, np.int8):
         return DataType.INT8
-    #add
     if isinstance(data, np.uint64):
         return DataType.UINT64
     if isinstance(data, np.uint32):
@@ -98,7 +97,6 @@ def infer_dtype_by_scaladata(data):
         return DataType.UINT16
     if isinstance(data, np.uint8):
         return DataType.UINT8
-
     if isinstance(data, np.bool8):
         return DataType.BOOL
     if isinstance(data, np.bool_):
